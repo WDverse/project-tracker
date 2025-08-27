@@ -32,14 +32,54 @@
           <li class="list-group-item">Project Name</li>
           <li class="list-group-item">Project Type</li>
           <li class="list-group-item">Due Date</li>
-        <button type="button" id = "custom-trigger-modal" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#exampleModal"> Add Project</button>
-</div>
+        <button type="button" id = "custom-trigger-modal" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#new-project-modal"> Add Project</button>
+      </div>
         </ul>
       </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="new-project-modal" tabindex="-1" aria-labelledby="new-project-modal-Label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="new-project-modal-Label">Add a new project</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="project-name-input" class="form-label">Project Name</label>
+          <input type="text" class="form-control" id="project-name-input" placeholder="Enter project name" required>
+        </div>
+        <div class="mb-3">
+          <label for="project-type-input">Project Type</label>
+          <select id="project-type-input" class="form-select">
+          <option value="Web Application (Front End)">Web Application (Front End)</option>
+          <option value="Web Application (Back End)">Web Application (Back End)</option>
+          <option value="Web Application (Full Stack)">Web Application (Full Stack)</option>
+          <option value="Moble Application">Mobile Application</option>
+          <option value="Print Campaign">Print Campaign</option>
+          <option value="Digital Marketing Campaign">Digital Marketing Campaign</option>
+        </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="project-date-input">Project Date</label>
+          <input id="project-date-input" type="date" class="form-control" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
     </main>
     <footer></footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.13/dayjs.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="./assets/index.js"></script>
