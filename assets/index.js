@@ -11,7 +11,25 @@ const displayTime =  () => {
     dateEL.text (currDateAndTime)
 }
 
-const printProjectToPage = (event) => {
+// read projects stored in localStorage and return array of project objects
+const readStoredProjectData = () => {
+    let projectData = localStorage.getItem('projects');
+    // if there are exisiting projects in local storage, return array of project objects
+    if (projectData) {
+       projectData = JSON.parse(projectData);
+       // otherwise return an empty array
+    }else{
+        projectData = [];
+    }
+    return projectData
+}
+
+// get projects array and save to localstorage
+const storeProjectData = (projectData) => {
+    localStorage.setItem('projects', JSON.stringify(projectData))
+}
+
+const handleFormSubmit = (event) => {
     event.preventDefault();
     const projectDetails = {
         name: projectNameInputEl.val().trim(),
@@ -19,20 +37,37 @@ const printProjectToPage = (event) => {
         date: projectDateInputEl.val()
     }
 
-    const projectDate = dayjs(projectDetails.date)
+    const projects = readStoredProjectData();
+    projects.push(projectDetails);
 
+    storeProjectData(projectDetails);
 
-    const rowEl = $('<tr>');
-    const nameEl = $('<td>').text(projectDetails.name);
-    const typeEl = $('<td>').text(projectDetails.type);
-    const dateEl = $('<td>').text(projectDate.format('MM/DD/YYYY'));
-
-    rowEl.append(nameEl,typeEl,dateEl);
-    projectTableEl.append(rowEl)
-
+clearFormInput()
 }
 
-projectFormEl.on('submit', printProjectToPage)
+// const printProjectToPage = () => {
+
+//     const projectDate = dayjs(projectDetails.date)
+
+
+//     const rowEl = $('<tr>');
+//     const nameEl = $('<td>').text(projectDetails.name);
+//     const typeEl = $('<td>').text(projectDetails.type);
+//     const dateEl = $('<td>').text(projectDate.format('MM/DD/YYYY'));
+
+//     rowEl.append(nameEl,typeEl,dateEl);
+//     projectTableEl.append(rowEl)
+
+    
+// }
+
+const clearFormInput = () => {
+         projectNameInputEl.val("")
+        projectTypeInputEl.val("")
+        projectDateInputEl.val("")
+    }
+
+projectFormEl.on('submit', handleFormSubmit)
 
 displayTime()
 setInterval (displayTime, 1000)
