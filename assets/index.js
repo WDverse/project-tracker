@@ -1,73 +1,96 @@
-const dateEL = $ ("#date")
-const timeEl = $("#time") 
-const projectFormEl = $ ("#project-form")
-const projectNameInputEl = $("#project-name-input")
-const projectTypeInputEl = $ ("#project-type-input")
-const projectDateInputEl = $ ("#project-date-input")
-const projectTableEl = $("#project-table")
+const dateEl = $("#date");
+const timeEl = $("#time");
+const projectFormEl = $("#project-form");
+const projectNameInputEl = $("#project-name-input");
+const projectTypeInputEl = $("#project-type-input");
+const projectDateInputEl = $("#project-date-input");
+const projectTableEl = $("#project-table");
 
-const displayTime =  () => {
-    const currDateAndTime = dayjs().format("MMM D, YYYY [at] hh:mm:ss a ")
-    dateEL.text (currDateAndTime)
-}
+const displayTime = () => {
+  const currDateAndTime = dayjs().format("MMM D, YYYY [at] hh:mm:ss a ");
+  dateEl.text(currDateAndTime);
+};
 
 // read projects stored in localStorage and return array of project objects
 const readStoredProjectData = () => {
-    let projectData = localStorage.getItem('projects');
-    // if there are exisiting projects in local storage, return array of project objects
-    if (projectData) {
-       projectData = JSON.parse(projectData);
-       // otherwise return an empty array
-    }else{
-        projectData = [];
-    }
-    return projectData
-}
+  let projectData = localStorage.getItem("projects");
+  // if there are exisiting projects in local storage, return array of project objects
+  if (projectData) {
+    projectData = JSON.parse(projectData);
+    // otherwise return an empty array
+  } else {
+    projectData = [];
+  }
+  return projectData;
+};
 
 // get projects array and save to localstorage
 const storeProjectData = (projectData) => {
-    localStorage.setItem('projects', JSON.stringify(projectData))
-}
+  localStorage.setItem("projects", JSON.stringify(projectData));
+};
+
+
+const printProjectToPage = () => {
+    projectTableEl.empty();
+    
+    const projects = readStoredProjectData();
+    
+    for (let i = 0; i < projects.length; i++) {
+        let project = projects[i];
+        let projectDate = dayjs(project.date);
+        let today = dayjs().startOf("day");
+        
+        const rowEl = $("<tr>");
+        const nameEl = $("<td>");
+        const typeEl = $("<td>");
+        const projectDateEl = $("<td>");
+        
+        nameEl.text(project.name);
+        typeEl.text(project.type);
+        projectDateEl.text(projectDate.format("MM/DD/YYYY"));
+        
+        rowEl.append(nameEl, typeEl, projectDateEl);
+        
+        projectTableEl.append(rowEl);
+        
+        if (projectDate.isBefore(today)) {
+            rowEl.addClass("late");
+        } else if (projectDate.isSame(today)) {
+            rowEl.addClass("due-today");
+        }
+    }
+};
 
 const handleFormSubmit = (event) => {
-    event.preventDefault();
-    const projectDetails = {
-        name: projectNameInputEl.val().trim(),
-        type: projectTypeInputEl.val(),
-        date: projectDateInputEl.val()
-    }
+  event.preventDefault();
+  
+  const projectName = projectNameInputEl.val().trim();
+  const projectType = projectTypeInputEl.val();
+  const projectDate = projectDateInputEl.val();
 
-    const projects = readStoredProjectData();
-    projects.push(projectDetails);
+  const projectDetails = {
+    name: projectName,
+    type: projectType,
+    date: projectDate
+  };
 
-    storeProjectData(projectDetails);
+  const projects = readStoredProjectData();
+  projects.push(projectDetails);
 
-clearFormInput()
-}
+  storeProjectData(projects);
 
-// const printProjectToPage = () => {
-
-//     const projectDate = dayjs(projectDetails.date)
-
-
-//     const rowEl = $('<tr>');
-//     const nameEl = $('<td>').text(projectDetails.name);
-//     const typeEl = $('<td>').text(projectDetails.type);
-//     const dateEl = $('<td>').text(projectDate.format('MM/DD/YYYY'));
-
-//     rowEl.append(nameEl,typeEl,dateEl);
-//     projectTableEl.append(rowEl)
-
-    
-// }
+  clearFormInput();
+  printProjectToPage();
+};
 
 const clearFormInput = () => {
-         projectNameInputEl.val("")
-        projectTypeInputEl.val("")
-        projectDateInputEl.val("")
-    }
+  projectNameInputEl.val("");
+  projectTypeInputEl.val("");
+  projectDateInputEl.val("");
+};
 
-projectFormEl.on('submit', handleFormSubmit)
+projectFormEl.on("submit", handleFormSubmit);
 
-displayTime()
-setInterval (displayTime, 1000)
+displayTime();
+setInterval(displayTime, 1000);
+printProjectToPage();
