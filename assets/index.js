@@ -44,12 +44,13 @@ const printProjectToPage = () => {
         const nameEl = $("<td>");
         const typeEl = $("<td>");
         const projectDateEl = $("<td>");
+        const deleteBtnEl = $(`<td><button  class="btn btn-sm btn-delete-project" data-index = "${i}">X</button></td>`);
         
         nameEl.text(project.name);
         typeEl.text(project.type);
         projectDateEl.text(projectDate.format("MM/DD/YYYY"));
         
-        rowEl.append(nameEl, typeEl, projectDateEl);
+        rowEl.append(nameEl, typeEl, projectDateEl, deleteBtnEl);
         
         projectTableEl.append(rowEl);
         
@@ -60,6 +61,14 @@ const printProjectToPage = () => {
         }
     }
 };
+
+const handleDeleteProject = () => {
+    const projectIndex = parseInt($(this).attr('data-index'));
+    const projects = readStoredProjectData();
+    projects.splice(projectIndex, 1);
+    storeProjectData(projects);
+    printProjectToPage()
+}
 
 const handleFormSubmit = (event) => {
   event.preventDefault();
@@ -90,6 +99,8 @@ const clearFormInput = () => {
 };
 
 projectFormEl.on("submit", handleFormSubmit);
+
+projectTableEl.on ('click', '.btn-delete-project', handleDeleteProject)
 
 displayTime();
 setInterval(displayTime, 1000);
