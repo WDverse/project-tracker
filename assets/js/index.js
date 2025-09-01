@@ -44,7 +44,7 @@ const printProjectToPage = () => {
         const nameEl = $("<td>");
         const typeEl = $("<td>");
         const projectDateEl = $("<td>");
-        const deleteBtnEl = $(`<td><button  class="btn btn-sm btn-delete-project" data-index = "${i}">X</button></td>`);
+        const deleteBtnEl = $(`<td><button  class="btn btn-sm btn-delete-project custom-dlt-btn" data-index = "${i}">X</button></td>`);
         
         nameEl.text(project.name);
         typeEl.text(project.type);

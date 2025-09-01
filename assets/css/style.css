@@ -1,0 +1,57 @@
+:root {
+  --light: #f6f6f6;
+  --darkblue: #2c3e50;
+  --lightblue: #1b5f8d;
+  --lighterblue:#3082b9;
+  --red: #e74c3c;
+  --lightred: #f9eae7;
+  --lightyellow: #fff5d1;
+}
+
+header{
+    background-color: var(--darkblue);
+    color: var(--light);
+}
+
+#project-table > tr.late > td {
+    background-color: var(--lightred) ;
+}
+
+#project-table > tr.due-today > td {
+    background-color: var(--lightyellow);
+}
+
+.custom-dlt-btn {
+    font-size: small;
+    border: solid var(--red);
+    background-color: var(--red);
+    color: var(--light);
+   
+}
+.custom-dlt-btn:hover{
+border: solid var(--red);
+}
+
+.custom-dlt-btn:active{
+border: solid rgb(234, 156, 156)!important;
+}
+
+.custom-add-project-btn{
+    background-color: var(--darkblue);
+    border: solid var(--darkblue);
+}
+
+.custom-add-project-btn:hover{
+    background-color: var(--lightblue);
+    border: solid var(--lightblue);
+}
+.custom-add-project-btn:active{
+    background-color: var(--lighterblue) !important;
+    border: solid var(--lighterblue) !important;
+}
+
+
+.custom-footer {
+    margin-top: 170px;
+}
+
