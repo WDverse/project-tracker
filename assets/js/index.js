@@ -62,8 +62,9 @@ const printProjectToPage = () => {
     }
 };
 
-const handleDeleteProject = () => {
-    const projectIndex = parseInt($(this).attr('data-index'));
+const handleDeleteProject =  (event) =>  {
+  const {target} = event;
+    const projectIndex = parseInt(target.getAttribute('data-index'));
     const projects = readStoredProjectData();
     projects.splice(projectIndex, 1);
     storeProjectData(projects);
