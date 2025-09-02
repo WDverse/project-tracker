@@ -3,7 +3,7 @@
 
 ## Description
 
-This web application allows users to keep track of their projects by allowing them to enter and display their project information, which is stored in the browser's local storage until deleted. 
+This web application allows users to keep track of their projects by allowing them to enter and display their project information, which is stored in the browser's local storage until deleted. Building this project showed me how the use of third-party APIs like jQuery, Bootstrap and DayJs can boost productivity and speed up development.
 
 ## Installation
 
